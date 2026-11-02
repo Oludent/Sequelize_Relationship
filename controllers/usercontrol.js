@@ -2,7 +2,7 @@ const { Users, Posts } = require('../models')
 
 const newUser = async (req, res) => {
     try {
-        const {firstName, lastName, gender, email, postId}= req.body;
+        const {firstName, lastName, gender, email}= req.body;
         const user = await Users.findOne({where: {email}});
         if (user){
             return res.status(400).json({
@@ -14,8 +14,7 @@ const newUser = async (req, res) => {
             firstName,
             lastName,
             email,
-            gender,
-            postId
+            gender
         });
         res.status(201).json({
             message: `User created successfully`,
@@ -53,8 +52,7 @@ const getOneUser = async (req, res) => {
     const user = await Users.findByPk(id, {
         include: {
             attributes: ['title', 'body'],
-            model: Posts,
-            as: 'Article',
+            model: Users,
         }
     });
 
@@ -78,9 +76,9 @@ const getOneUser = async (req, res) => {
 const UpdateUser = async (req, res) =>{
     try {
         const {id} = req.params;
-        const {firstName, lastName, gender, email, postId} = req.body;
+        const {firstName, lastName, gender, email} = req.body;
     
-        const update = await Users.update({firstName, lastName, gender, email, postId}, {where: {id}})
+        const update = await Users.update({firstName, lastName, gender, email}, {where: {id}})
         if(!update){
             return res.status(404).json({
                 message: `User doesn't esxists`

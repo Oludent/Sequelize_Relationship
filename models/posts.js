@@ -11,7 +11,9 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Posts.hasMany(models.Users, {
+      Posts.belongsTo(models.Users, {
+        foreignKey: 'userId',
+        as: 'Clients',
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       })
@@ -31,6 +33,11 @@ module.exports = (sequelize, DataTypes) => {
       body: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+       userId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        defaultValue: DataTypes.UUIDV4
       },
       createdAt: {
         allowNull: false,
