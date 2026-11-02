@@ -19,10 +19,6 @@ module.exports = {
         type: Sequelize.ENUM('Male', 'Female'),
         allowNull: false
       },
-      postId: {
-        type: Sequelize.UUID,
-        allowNull: false
-      },
       email: {
         type: Sequelize.STRING,
         allowNull: false,

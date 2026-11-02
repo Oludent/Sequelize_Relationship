@@ -11,9 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Users.belongsTo(models.Posts, {
-        foreignKey: 'postId',
-        as: 'Article',
+      Users.hasMany(models.Posts, {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       })
@@ -34,10 +32,6 @@ module.exports = (sequelize, DataTypes) => {
       },
       gender: {
         type: DataTypes.ENUM('Male', 'Female'),
-        allowNull: false
-      },
-      postId: {
-        type: DataTypes.UUID,
         allowNull: false
       },
       email: {
